@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Azul
+{
+    class Player
+    {
+        public int id { get; private set; }
+        public string username { get; set; }
+        public string password { get; set; }
+
+        public Player(int id, string username, string password)
+        {
+            this.id = id;
+            this.username = username;
+            this.password = password;
+        }
+
+        public Player(string username)
+        {
+            this.username = username;
+        }
+    }
+}
