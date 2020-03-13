@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Azul
 {
-    public partial class Form1 : Form
+    public partial class Azul : Form
     {
-        public Form1()
+        public Azul()
         {
             InitializeComponent();
         }
