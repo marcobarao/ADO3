@@ -12,9 +12,19 @@ namespace Azul
 {
     public partial class Azul : Form
     {
+        public Lobby lobby { get; set; }
+
         public Azul()
         {
+            this.lobby = new Lobby();
             InitializeComponent();
+
+        }
+
+        private void btnFetch_Click(object sender, EventArgs e)
+        {
+            this.lobby.listGames(Status.OPEN);
+            lstGames.Items.AddRange(lobby.games);
         }
     }
 }

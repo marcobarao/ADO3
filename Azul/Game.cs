@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 namespace Azul
 {
     public enum Status { ALL = 'T', OPEN = 'A', PLAYING = 'J', FINISHED = 'E' }
+   
 
-    class Game
+    public class Game
     {
         public int id { get; private set; }
         public string name { get; set; }
