@@ -23,9 +23,16 @@ namespace Azul
 
         private void btnFetch_Click(object sender, EventArgs e)
         {
-            this.lobby.listGames(Status.ALL);
+            this.lobby.listGames("A");
+
+            lstGames.DataSource = lobby.games;
+            lstGames.DisplayMember = "name";
+            lstGames.ValueMember = "id";
+        }
+
+        private void lstGames_SelectedIndexChanged(object sender, EventArgs e)
+        {
             
-            lstGames.Items.AddRange(lobby.games);
         }
     }
 }

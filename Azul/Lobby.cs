@@ -12,38 +12,34 @@ namespace Azul
     public class Lobby
     {
         public string version { get; private set; }
-        public String[] games;
+        public List<Game> games = new List<Game>();
 
         public Lobby()
         {
             this.version = Jogo.Versao;
         }
 
-        public void listGames(Status status)
+        public void listGames(String status)
         {
-            string result = Jogo.ListarPartidas(Convert.ToString(Convert.ToChar(status)));
+            string result = Jogo.ListarPartidas(status);
 
-
-            //result.Replace('\r', "");
             result.Replace("\n", String.Empty);
             String[] matches = result.Split('\r');
-            this.games = matches;
 
 
-            /*
+            matches = matches.Take(matches.Length - 1).ToArray();
+            
             foreach (String match in matches)
             {
+                Game game = new Game();
                 String[] matchInfo = match.Split(',');
-                String id = matchInfo[0];
-                String name = matchInfo[1];
-                String date = matchInfo[2];
-                String estado = matchInfo[3];
-                
+
+                game.id = Convert.ToInt32(matchInfo[0]);
+                game.name = matchInfo[1];
+                game.date = DateTime.ParseExact(matchInfo[2], "dd/MM/yyyy", CultureInfo.CreateSpecificCulture("pt-BR"));
+                game.status = matchInfo[3];
+                this.games.Add(game);
             }
-            */
-            
-            // TODO: Formatar o resultado (partidas) utilizando a classe Game e adicionar na lista
-            // this.games.add(game);
         }
 
         public Player joinGame(Game game, Player player)
