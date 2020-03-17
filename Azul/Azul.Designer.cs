@@ -37,7 +37,7 @@
             this.lstGames.FormattingEnabled = true;
             this.lstGames.Location = new System.Drawing.Point(118, 58);
             this.lstGames.Name = "lstGames";
-            this.lstGames.Size = new System.Drawing.Size(221, 186);
+            this.lstGames.Size = new System.Drawing.Size(177, 186);
             this.lstGames.TabIndex = 0;
             // 
             // btnFetch

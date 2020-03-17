@@ -23,7 +23,8 @@ namespace Azul
 
         private void btnFetch_Click(object sender, EventArgs e)
         {
-            this.lobby.listGames(Status.OPEN);
+            this.lobby.listGames(Status.ALL);
+            
             lstGames.Items.AddRange(lobby.games);
         }
     }

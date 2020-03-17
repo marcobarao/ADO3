@@ -12,7 +12,7 @@ namespace Azul
     public class Lobby
     {
         public string version { get; private set; }
-        public List<Game> games { get; set; }
+        public String[] games;
 
         public Lobby()
         {
@@ -27,18 +27,21 @@ namespace Azul
             //result.Replace('\r', "");
             result.Replace("\n", String.Empty);
             String[] matches = result.Split('\r');
+            this.games = matches;
 
 
-
+            /*
             foreach (String match in matches)
             {
                 String[] matchInfo = match.Split(',');
-                int id = Convert.ToInt32(matchInfo[0]);
+                String id = matchInfo[0];
                 String name = matchInfo[1];
-                DateTime date = DateTime.Parse(matchInfo[2], new CultureInfo("pt-BR"));
-                //char status = matchInfo[3];
+                String date = matchInfo[2];
+                String estado = matchInfo[3];
+                
             }
-
+            */
+            
             // TODO: Formatar o resultado (partidas) utilizando a classe Game e adicionar na lista
             // this.games.add(game);
         }
