@@ -39,6 +39,7 @@
             this.lstGames.Name = "lstGames";
             this.lstGames.Size = new System.Drawing.Size(177, 186);
             this.lstGames.TabIndex = 0;
+            this.lstGames.SelectedIndexChanged += new System.EventHandler(this.lstGames_SelectedIndexChanged);
             // 
             // btnFetch
             // 
