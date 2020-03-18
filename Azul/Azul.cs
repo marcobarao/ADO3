@@ -34,5 +34,10 @@ namespace Azul
         {
             
         }
+
+        private void pctSenac_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
