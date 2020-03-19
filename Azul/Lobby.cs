@@ -13,6 +13,7 @@ namespace Azul
     {
         public string version { get; private set; }
         public List<Game> games = new List<Game>();
+        
 
         public Lobby()
         {
@@ -28,7 +29,7 @@ namespace Azul
 
 
             matches = matches.Take(matches.Length - 1).ToArray();
-            
+
             foreach (String match in matches)
             {
                 Game game = new Game();
@@ -42,24 +43,20 @@ namespace Azul
             }
         }
 
-        public Player joinGame(Game game, Player player)
+        public void joinGame(Game game, Player player)
         {
             string result = Jogo.EntrarPartida(game.id, player.username, game.password);
 
-            // TODO: Formatar resultado (Id e senha do jogador) e adicionar isso a instancia player:
-            // player.id = id;
-            // player.password = password;
-
-            return player;
+            String[] playerInfo = result.Split(',');
+            player.id = Convert.ToInt32(playerInfo[0]);
+            player.password = playerInfo[1].Trim();
         }
-
         public Game createGame(Game game)
         {
             string result = Jogo.CriarPartida(game.name, game.password);
 
-            // TODO Formatar resultado (id da partida) e adicionar isso a instancia game;
-            // game.id = id;
-
+            String[] matchInfo = result.Split(',');
+            game.id = Convert.ToInt32(matchInfo[0]);
             return game;
         }
     }

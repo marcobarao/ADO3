@@ -8,7 +8,7 @@ namespace Azul
 {
     public class Player
     {
-        public int id { get; private set; }
+        public int id { get; set; }
         public string username { get; set; }
         public string password { get; set; }
 

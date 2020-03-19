@@ -32,143 +32,162 @@
             this.lstGames = new System.Windows.Forms.ListBox();
             this.btnFetch = new System.Windows.Forms.Button();
             this.pctSenac = new System.Windows.Forms.PictureBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.btnEntrarPartida = new System.Windows.Forms.Button();
             this.txtNomeJogador = new System.Windows.Forms.TextBox();
             this.lblNomeJogador = new System.Windows.Forms.Label();
-            this.btnCriarPartida = new System.Windows.Forms.Button();
-            this.txtNomePartida = new System.Windows.Forms.TextBox();
-            this.txtSenha = new System.Windows.Forms.TextBox();
-            this.lblSenha = new System.Windows.Forms.Label();
-            this.lblNomePartida = new System.Windows.Forms.Label();
+            this.btnCreateMatch = new System.Windows.Forms.Button();
+            this.txtMatchName = new System.Windows.Forms.TextBox();
+            this.txtPasswordCreate = new System.Windows.Forms.TextBox();
+            this.lblPasswordC = new System.Windows.Forms.Label();
+            this.lblMatchNameC = new System.Windows.Forms.Label();
+            this.lblPasswordJoin = new System.Windows.Forms.Label();
+            this.txtPasswordJoin = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pctSenac)).BeginInit();
             this.SuspendLayout();
             // 
             // lstGames
             // 
             this.lstGames.FormattingEnabled = true;
-            this.lstGames.ItemHeight = 16;
-            this.lstGames.Location = new System.Drawing.Point(12, 184);
-            this.lstGames.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lstGames.Location = new System.Drawing.Point(45, 184);
             this.lstGames.Name = "lstGames";
-            this.lstGames.Size = new System.Drawing.Size(312, 100);
+            this.lstGames.Size = new System.Drawing.Size(235, 82);
             this.lstGames.TabIndex = 0;
             this.lstGames.SelectedIndexChanged += new System.EventHandler(this.lstGames_SelectedIndexChanged);
             // 
             // btnFetch
             // 
-            this.btnFetch.Location = new System.Drawing.Point(8, 149);
-            this.btnFetch.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnFetch.Location = new System.Drawing.Point(42, 155);
             this.btnFetch.Name = "btnFetch";
-            this.btnFetch.Size = new System.Drawing.Size(166, 31);
+            this.btnFetch.Size = new System.Drawing.Size(237, 25);
             this.btnFetch.TabIndex = 1;
-            this.btnFetch.Text = "Listar Partidas";
+            this.btnFetch.Text = "Listar partidas abertas";
             this.btnFetch.UseVisualStyleBackColor = true;
             this.btnFetch.Click += new System.EventHandler(this.btnFetch_Click);
             // 
             // pctSenac
             // 
             this.pctSenac.Image = ((System.Drawing.Image)(resources.GetObject("pctSenac.Image")));
-            this.pctSenac.Location = new System.Drawing.Point(5, 4);
+            this.pctSenac.Location = new System.Drawing.Point(45, 11);
+            this.pctSenac.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pctSenac.Name = "pctSenac";
-            this.pctSenac.Size = new System.Drawing.Size(313, 133);
+            this.pctSenac.Size = new System.Drawing.Size(235, 108);
             this.pctSenac.TabIndex = 2;
             this.pctSenac.TabStop = false;
             this.pctSenac.Click += new System.EventHandler(this.pctSenac_Click);
             // 
-            // comboBox1
-            // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(181, 153);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(144, 24);
-            this.comboBox1.TabIndex = 3;
-            // 
             // btnEntrarPartida
             // 
-            this.btnEntrarPartida.Location = new System.Drawing.Point(11, 433);
+            this.btnEntrarPartida.Location = new System.Drawing.Point(46, 464);
+            this.btnEntrarPartida.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnEntrarPartida.Name = "btnEntrarPartida";
-            this.btnEntrarPartida.Size = new System.Drawing.Size(313, 23);
+            this.btnEntrarPartida.Size = new System.Drawing.Size(235, 30);
             this.btnEntrarPartida.TabIndex = 19;
             this.btnEntrarPartida.Text = "Entrar na Partida";
             this.btnEntrarPartida.UseVisualStyleBackColor = true;
             // 
             // txtNomeJogador
             // 
-            this.txtNomeJogador.Location = new System.Drawing.Point(13, 405);
+            this.txtNomeJogador.Location = new System.Drawing.Point(46, 403);
+            this.txtNomeJogador.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtNomeJogador.Name = "txtNomeJogador";
-            this.txtNomeJogador.Size = new System.Drawing.Size(311, 22);
+            this.txtNomeJogador.Size = new System.Drawing.Size(234, 20);
             this.txtNomeJogador.TabIndex = 18;
             // 
             // lblNomeJogador
             // 
             this.lblNomeJogador.AutoSize = true;
-            this.lblNomeJogador.Location = new System.Drawing.Point(13, 384);
+            this.lblNomeJogador.Location = new System.Drawing.Point(46, 386);
+            this.lblNomeJogador.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNomeJogador.Name = "lblNomeJogador";
-            this.lblNomeJogador.Size = new System.Drawing.Size(121, 17);
+            this.lblNomeJogador.Size = new System.Drawing.Size(91, 13);
             this.lblNomeJogador.TabIndex = 17;
             this.lblNomeJogador.Text = "Nome do Jogador";
+            this.lblNomeJogador.Click += new System.EventHandler(this.lblNomeJogador_Click);
             // 
-            // btnCriarPartida
+            // btnCreateMatch
             // 
-            this.btnCriarPartida.Location = new System.Drawing.Point(181, 354);
-            this.btnCriarPartida.Name = "btnCriarPartida";
-            this.btnCriarPartida.Size = new System.Drawing.Size(143, 23);
-            this.btnCriarPartida.TabIndex = 16;
-            this.btnCriarPartida.Text = "Criar Partida";
-            this.btnCriarPartida.UseVisualStyleBackColor = true;
+            this.btnCreateMatch.Location = new System.Drawing.Point(171, 340);
+            this.btnCreateMatch.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCreateMatch.Name = "btnCreateMatch";
+            this.btnCreateMatch.Size = new System.Drawing.Size(107, 19);
+            this.btnCreateMatch.TabIndex = 16;
+            this.btnCreateMatch.Text = "Criar Partida";
+            this.btnCreateMatch.UseVisualStyleBackColor = true;
+            this.btnCreateMatch.Click += new System.EventHandler(this.btnCreateMatch_Click);
             // 
-            // txtNomePartida
+            // txtMatchName
             // 
-            this.txtNomePartida.Location = new System.Drawing.Point(13, 310);
-            this.txtNomePartida.Name = "txtNomePartida";
-            this.txtNomePartida.Size = new System.Drawing.Size(311, 22);
-            this.txtNomePartida.TabIndex = 15;
+            this.txtMatchName.Location = new System.Drawing.Point(45, 304);
+            this.txtMatchName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtMatchName.Name = "txtMatchName";
+            this.txtMatchName.Size = new System.Drawing.Size(234, 20);
+            this.txtMatchName.TabIndex = 15;
             // 
-            // txtSenha
+            // txtPasswordCreate
             // 
-            this.txtSenha.Location = new System.Drawing.Point(13, 355);
-            this.txtSenha.Name = "txtSenha";
-            this.txtSenha.Size = new System.Drawing.Size(161, 22);
-            this.txtSenha.TabIndex = 14;
+            this.txtPasswordCreate.Location = new System.Drawing.Point(45, 340);
+            this.txtPasswordCreate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtPasswordCreate.Name = "txtPasswordCreate";
+            this.txtPasswordCreate.Size = new System.Drawing.Size(122, 20);
+            this.txtPasswordCreate.TabIndex = 14;
             // 
-            // lblSenha
+            // lblPasswordC
             // 
-            this.lblSenha.AutoSize = true;
-            this.lblSenha.Location = new System.Drawing.Point(13, 335);
-            this.lblSenha.Name = "lblSenha";
-            this.lblSenha.Size = new System.Drawing.Size(49, 17);
-            this.lblSenha.TabIndex = 13;
-            this.lblSenha.Text = "Senha";
+            this.lblPasswordC.AutoSize = true;
+            this.lblPasswordC.Location = new System.Drawing.Point(45, 324);
+            this.lblPasswordC.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPasswordC.Name = "lblPasswordC";
+            this.lblPasswordC.Size = new System.Drawing.Size(38, 13);
+            this.lblPasswordC.TabIndex = 13;
+            this.lblPasswordC.Text = "Senha";
             // 
-            // lblNomePartida
+            // lblMatchNameC
             // 
-            this.lblNomePartida.AutoSize = true;
-            this.lblNomePartida.Location = new System.Drawing.Point(13, 290);
-            this.lblNomePartida.Name = "lblNomePartida";
-            this.lblNomePartida.Size = new System.Drawing.Size(114, 17);
-            this.lblNomePartida.TabIndex = 12;
-            this.lblNomePartida.Text = "Nome da Partida";
+            this.lblMatchNameC.AutoSize = true;
+            this.lblMatchNameC.Location = new System.Drawing.Point(45, 288);
+            this.lblMatchNameC.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblMatchNameC.Name = "lblMatchNameC";
+            this.lblMatchNameC.Size = new System.Drawing.Size(86, 13);
+            this.lblMatchNameC.TabIndex = 12;
+            this.lblMatchNameC.Text = "Nome da Partida";
+            // 
+            // lblPasswordJoin
+            // 
+            this.lblPasswordJoin.AutoSize = true;
+            this.lblPasswordJoin.Location = new System.Drawing.Point(46, 425);
+            this.lblPasswordJoin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPasswordJoin.Name = "lblPasswordJoin";
+            this.lblPasswordJoin.Size = new System.Drawing.Size(41, 13);
+            this.lblPasswordJoin.TabIndex = 20;
+            this.lblPasswordJoin.Text = "Senha:";
+            this.lblPasswordJoin.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // txtPasswordJoin
+            // 
+            this.txtPasswordJoin.Location = new System.Drawing.Point(46, 440);
+            this.txtPasswordJoin.Margin = new System.Windows.Forms.Padding(2);
+            this.txtPasswordJoin.Name = "txtPasswordJoin";
+            this.txtPasswordJoin.Size = new System.Drawing.Size(234, 20);
+            this.txtPasswordJoin.TabIndex = 21;
             // 
             // Azul
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(334, 462);
+            this.ClientSize = new System.Drawing.Size(323, 505);
+            this.Controls.Add(this.txtPasswordJoin);
+            this.Controls.Add(this.lblPasswordJoin);
             this.Controls.Add(this.btnEntrarPartida);
             this.Controls.Add(this.txtNomeJogador);
             this.Controls.Add(this.lblNomeJogador);
-            this.Controls.Add(this.btnCriarPartida);
-            this.Controls.Add(this.txtNomePartida);
-            this.Controls.Add(this.txtSenha);
-            this.Controls.Add(this.lblSenha);
-            this.Controls.Add(this.lblNomePartida);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.btnCreateMatch);
+            this.Controls.Add(this.txtMatchName);
+            this.Controls.Add(this.txtPasswordCreate);
+            this.Controls.Add(this.lblPasswordC);
+            this.Controls.Add(this.lblMatchNameC);
             this.Controls.Add(this.pctSenac);
             this.Controls.Add(this.btnFetch);
             this.Controls.Add(this.lstGames);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Azul";
             this.Text = "Azul";
             ((System.ComponentModel.ISupportInitialize)(this.pctSenac)).EndInit();
@@ -182,15 +201,16 @@
         private System.Windows.Forms.ListBox lstGames;
         private System.Windows.Forms.Button btnFetch;
         private System.Windows.Forms.PictureBox pctSenac;
-        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button btnEntrarPartida;
         private System.Windows.Forms.TextBox txtNomeJogador;
         private System.Windows.Forms.Label lblNomeJogador;
-        private System.Windows.Forms.Button btnCriarPartida;
-        private System.Windows.Forms.TextBox txtNomePartida;
-        private System.Windows.Forms.TextBox txtSenha;
-        private System.Windows.Forms.Label lblSenha;
-        private System.Windows.Forms.Label lblNomePartida;
+        private System.Windows.Forms.Button btnCreateMatch;
+        private System.Windows.Forms.TextBox txtMatchName;
+        private System.Windows.Forms.TextBox txtPasswordCreate;
+        private System.Windows.Forms.Label lblPasswordC;
+        private System.Windows.Forms.Label lblMatchNameC;
+        private System.Windows.Forms.Label lblPasswordJoin;
+        private System.Windows.Forms.TextBox txtPasswordJoin;
     }
 }
 
