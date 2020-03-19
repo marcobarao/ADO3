@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace Azul
 {
-    
+
 
     public class Game
     {
+        
         public int id { get; set; }
         public string name { get; set; }
         public string password { get; set; }
@@ -19,7 +20,7 @@ namespace Azul
 
         public Game()
         {
-            
+
         }
 
         public Game(string name, string password)
