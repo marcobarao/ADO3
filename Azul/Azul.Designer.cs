@@ -192,7 +192,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(980, 622);
+            this.ClientSize = new System.Drawing.Size(731, 622);
             this.Controls.Add(this.lblPlayerList);
             this.Controls.Add(this.lstPlayers);
             this.Controls.Add(this.txtPasswordJoin);
