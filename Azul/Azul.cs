@@ -49,6 +49,8 @@ namespace Azul
             Game selectedGame = (Game)lstGames.SelectedItem;
             if (selectedGame == null) return;
 
+            selectedGame.players.Clear();
+
             lstPlayers.DisplayMember = "username";
             lstPlayers.ValueMember = "id";
             lstPlayers.DataSource = selectedGame.players;
