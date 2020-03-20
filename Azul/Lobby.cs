@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using AzulServer;
 
 namespace Azul
@@ -12,7 +8,7 @@ namespace Azul
     public class Lobby
     {
         public string version { get; private set; }
-        public List<Game> games = new List<Game>();
+        public BindingList<Game> games = new BindingList<Game>();
         
 
         public Lobby()
@@ -23,23 +19,24 @@ namespace Azul
         public void listGames(String status)
         {
             string result = Jogo.ListarPartidas(status);
-
-            result.Replace("\n", String.Empty);
-            String[] matches = result.Split('\r');
-
-
-            matches = matches.Take(matches.Length - 1).ToArray();
-
-            foreach (String match in matches)
+            if (result != String.Empty)
             {
-                Game game = new Game();
-                String[] matchInfo = match.Split(',');
+                result = result.Trim();
+                result.Replace("\n", String.Empty);
+                String[] matches = result.Split('\r');
 
-                game.id = Convert.ToInt32(matchInfo[0]);
-                game.name = matchInfo[1];
-                game.date = DateTime.ParseExact(matchInfo[2], "dd/MM/yyyy", CultureInfo.CreateSpecificCulture("pt-BR"));
-                game.status = matchInfo[3];
-                this.games.Add(game);
+                foreach (String match in matches)
+                {
+                    Game game = new Game();
+                    String[] matchInfo = match.Split(',');
+
+                    game.id = Convert.ToInt32(matchInfo[0]);
+                    game.name = matchInfo[1];
+                    game.date = DateTime.ParseExact(matchInfo[2], "dd/MM/yyyy",
+                        CultureInfo.CreateSpecificCulture("pt-BR"));
+                    game.status = matchInfo[3];
+                    this.games.Add(game);
+                }
             }
         }
 
@@ -51,13 +48,14 @@ namespace Azul
             player.id = Convert.ToInt32(playerInfo[0]);
             player.password = playerInfo[1].Trim();
         }
-        public Game createGame(Game game)
+
+        public void createGame(Game game)
         {
             string result = Jogo.CriarPartida(game.name, game.password);
 
             String[] matchInfo = result.Split(',');
             game.id = Convert.ToInt32(matchInfo[0]);
-            return game;
+            this.games.Add(game);
         }
     }
 }
