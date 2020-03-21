@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Timers;
 using System.Windows.Forms;
+using Timer = System.Windows.Forms.Timer;
 
 namespace Azul
 {
@@ -7,9 +9,9 @@ namespace Azul
     {
         public Player player { get; set; }
         public Lobby lobby { get; set; }
-
         public Game game { get; set; }
-
+        private Timer timer;
+        
         public Azul()
         {
             this.lobby = new Lobby();
@@ -46,6 +48,33 @@ namespace Azul
 
         private void lstGames_SelectedIndexChanged(object sender, EventArgs e)
         {
+            this.listPlayers();
+        }
+
+        private void Azul_Load(object sender, EventArgs e)
+        {
+            lobby.listGames("A");
+            this.listPlayers();
+
+            timer = new Timer();
+            timer.Tick += new EventHandler(tick);
+            timer.Interval = 5000;
+            timer.Start();
+        }
+
+        private void lstGames_SelectedValueChanged(object sender, EventArgs e)
+        {
+         
+        }
+
+        private void tick(object sender, EventArgs e)
+        {
+            lobby.listGames("A");
+            this.listPlayers();
+        }
+
+        private void listPlayers()
+        {
             Game selectedGame = (Game)lstGames.SelectedItem;
             if (selectedGame == null) return;
 
@@ -55,6 +84,11 @@ namespace Azul
             lstPlayers.ValueMember = "id";
             lstPlayers.DataSource = selectedGame.players;
             selectedGame.listPlayers();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            
         }
     }
 }
