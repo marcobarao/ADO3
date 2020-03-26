@@ -11,7 +11,7 @@ namespace Azul
         public Lobby lobby { get; set; }
         public Game game { get; set; }
         private Timer timer;
-        
+
         public Azul()
         {
             this.lobby = new Lobby();
@@ -30,7 +30,7 @@ namespace Azul
 
         private void btnEntrarPartida_Click(object sender, EventArgs e)
         {
-            Game game = (Game)lstGames.SelectedItem;
+            this.game = (Game)lstGames.SelectedItem;
             game.password = txtPasswordJoin.Text;
             String username = txtNomeJogador.Text;
 
@@ -41,7 +41,7 @@ namespace Azul
 
         private void btnCreateMatch_Click(object sender, EventArgs e)
         {
-            
+
             this.game = new Game(txtMatchName.Text, txtPasswordCreate.Text);
             this.lobby.createGame(this.game);
         }
@@ -64,7 +64,7 @@ namespace Azul
 
         private void lstGames_SelectedValueChanged(object sender, EventArgs e)
         {
-         
+
         }
 
         private void tick(object sender, EventArgs e)
@@ -78,17 +78,31 @@ namespace Azul
             Game selectedGame = (Game)lstGames.SelectedItem;
             if (selectedGame == null) return;
 
-            selectedGame.players.Clear();
+            //selectedGame.players.Clear();
 
             lstPlayers.DisplayMember = "username";
             lstPlayers.ValueMember = "id";
             lstPlayers.DataSource = selectedGame.players;
-            selectedGame.listPlayers();
+            //selectedGame.listPlayers();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
+        }
+
+        private void lblPassPlayer_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnStartGame_Click(object sender, EventArgs e)
+        {
+            Player selectedPlayer = (Player)lstPlayers.SelectedItem;
+            if (selectedPlayer == null && selectedPlayer.password == null) return;
+
+            selectedPlayer.startGame(this.game);
+
         }
     }
 }

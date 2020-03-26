@@ -1,11 +1,14 @@
-﻿using System;
+﻿using AzulServer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Azul
 {
+
     public class Player
     {
         public int id { get; set; }
@@ -19,5 +22,16 @@ namespace Azul
         {
             this.username = username;
         }
+        public void startGame(Game game)
+        {
+            string result = Jogo.IniciarPartida(this.id, this.password);
+
+            if (result != String.Empty)
+            {
+                game.actualPlayer = Convert.ToInt32(result.Trim());
+            }
+        }
     }
+
+
 }
