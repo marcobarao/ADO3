@@ -20,6 +20,7 @@ namespace Azul
         public string password { get; set; }
         public DateTime date { get; set; }
         public String status { get; set; }
+        public int actualPlayer { get; set; }
 
         public BindingList<Player> players = new BindingList<Player>();
 
