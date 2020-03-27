@@ -53,21 +53,20 @@
             this.lstGames.FormattingEnabled = true;
             this.lstGames.ItemHeight = 16;
             this.lstGames.Location = new System.Drawing.Point(60, 226);
-            this.lstGames.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lstGames.Margin = new System.Windows.Forms.Padding(4);
             this.lstGames.Name = "lstGames";
             this.lstGames.Size = new System.Drawing.Size(312, 100);
             this.lstGames.TabIndex = 0;
             this.lstGames.SelectedIndexChanged += new System.EventHandler(this.lstGames_SelectedIndexChanged);
-            this.lstGames.SelectedValueChanged += new System.EventHandler(this.lstGames_SelectedValueChanged);
             // 
             // btnFetch
             // 
             this.btnFetch.Location = new System.Drawing.Point(56, 191);
-            this.btnFetch.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnFetch.Margin = new System.Windows.Forms.Padding(4);
             this.btnFetch.Name = "btnFetch";
             this.btnFetch.Size = new System.Drawing.Size(316, 31);
             this.btnFetch.TabIndex = 1;
-            this.btnFetch.Text = "Listar partidas abertas";
+            this.btnFetch.Text = "Atualizar partidas";
             this.btnFetch.UseVisualStyleBackColor = true;
             this.btnFetch.Click += new System.EventHandler(this.btnFetch_Click);
             // 
@@ -176,7 +175,7 @@
             this.lstPlayers.FormattingEnabled = true;
             this.lstPlayers.ItemHeight = 16;
             this.lstPlayers.Location = new System.Drawing.Point(405, 33);
-            this.lstPlayers.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lstPlayers.Margin = new System.Windows.Forms.Padding(4);
             this.lstPlayers.Name = "lstPlayers";
             this.lstPlayers.Size = new System.Drawing.Size(308, 68);
             this.lstPlayers.TabIndex = 22;
@@ -222,7 +221,7 @@
             this.Controls.Add(this.pctSenac);
             this.Controls.Add(this.btnFetch);
             this.Controls.Add(this.lstGames);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximumSize = new System.Drawing.Size(746, 659);
             this.MinimumSize = new System.Drawing.Size(746, 659);
             this.Name = "Azul";
