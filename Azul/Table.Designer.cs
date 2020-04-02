@@ -32,6 +32,8 @@
             this.lstFactories = new System.Windows.Forms.ListBox();
             this.lblF1 = new System.Windows.Forms.Label();
             this.lblF2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lstCenter = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // lstTiles
@@ -71,11 +73,31 @@
             this.lblF2.TabIndex = 16;
             this.lblF2.Text = "Azulejos";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(313, 38);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(50, 17);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "Centro";
+            // 
+            // lstCenter
+            // 
+            this.lstCenter.FormattingEnabled = true;
+            this.lstCenter.ItemHeight = 16;
+            this.lstCenter.Location = new System.Drawing.Point(316, 61);
+            this.lstCenter.Name = "lstCenter";
+            this.lstCenter.Size = new System.Drawing.Size(120, 84);
+            this.lstCenter.TabIndex = 17;
+            // 
             // Table
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(343, 235);
+            this.ClientSize = new System.Drawing.Size(496, 184);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lstCenter);
             this.Controls.Add(this.lblF2);
             this.Controls.Add(this.lblF1);
             this.Controls.Add(this.lstTiles);
@@ -93,5 +115,7 @@
         private System.Windows.Forms.ListBox lstFactories;
         private System.Windows.Forms.Label lblF1;
         private System.Windows.Forms.Label lblF2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ListBox lstCenter;
     }
 }

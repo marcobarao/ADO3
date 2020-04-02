@@ -55,6 +55,7 @@
     <Compile Include="Azul.Designer.cs">
       <DependentUpon>Azul.cs</DependentUpon>
     </Compile>
+    <Compile Include="Center.cs" />
     <Compile Include="Factory.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Lobby.cs" />
