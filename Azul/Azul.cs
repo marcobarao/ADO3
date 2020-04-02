@@ -36,6 +36,15 @@ namespace Azul
             this.player = new Player(username);
             lobby.joinGame(this.game, this.player);
             this.game.players.Add(player);
+
+            if (this.player == null) return;
+
+            this.player.startGame(this.game);
+
+            this.Hide();
+            Table table = new Table(this.game, this.player);
+            table.Closed += (s, args) => this.Close();
+            table.Show();
         }
 
         private void btnCreateMatch_Click(object sender, EventArgs e)
@@ -71,14 +80,9 @@ namespace Azul
 
         private void btnStartGame_Click(object sender, EventArgs e)
         {
-            if (this.player == null) return;
+            
 
-            this.player.startGame(this.game);
-
-            this.Hide();
-            Table table = new Table(this.game, this.player);
-            table.Closed += (s, args) => this.Close();
-            table.Show();
+            
         }
     }
 }

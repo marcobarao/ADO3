@@ -57,7 +57,7 @@ namespace Azul
                 {
                     String[] tileInfo = line.Split(',');
 
-                    int factoryId = Convert.ToInt32(tileInfo[0]);
+                    int factoryId = Convert.ToInt32(tileInfo[1]);
                     Factory factory = this.factories.Find(item => item.id == factoryId);
                     int quantity = Convert.ToInt32(tileInfo[3]);
 

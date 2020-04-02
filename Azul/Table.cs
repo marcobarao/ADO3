@@ -44,5 +44,18 @@ namespace Azul
             lstTiles.ValueMember = "id";
             lstTiles.DataSource = selectedFactory.tiles;
         }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            this.game.readFactories(this.player);
+            lstFactories.DisplayMember = "id";
+            lstFactories.ValueMember = "id";
+            lstFactories.DataSource = this.game.factories;
+        }
+
+        private void lstTiles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
