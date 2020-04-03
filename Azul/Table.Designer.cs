@@ -33,6 +33,8 @@
             this.lblF1 = new System.Windows.Forms.Label();
             this.lblF2 = new System.Windows.Forms.Label();
             this.btnStart = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lstCenter = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // lstTiles
@@ -84,6 +86,23 @@
             this.btnStart.Text = "Iniciar";
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(313, 38);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(50, 17);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "Centro";
+            // 
+            // lstCenter
+            // 
+            this.lstCenter.FormattingEnabled = true;
+            this.lstCenter.ItemHeight = 16;
+            this.lstCenter.Location = new System.Drawing.Point(316, 61);
+            this.lstCenter.Name = "lstCenter";
+            this.lstCenter.Size = new System.Drawing.Size(120, 84);
+            this.lstCenter.TabIndex = 17;
             // 
             // Table
             // 
@@ -91,6 +110,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(257, 191);
             this.Controls.Add(this.btnStart);
+            this.ClientSize = new System.Drawing.Size(496, 184);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lstCenter);
             this.Controls.Add(this.lblF2);
             this.Controls.Add(this.lblF1);
             this.Controls.Add(this.lstTiles);
@@ -110,5 +132,7 @@
         private System.Windows.Forms.Label lblF1;
         private System.Windows.Forms.Label lblF2;
         private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ListBox lstCenter;
     }
 }

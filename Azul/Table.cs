@@ -30,9 +30,22 @@ namespace Azul
         private void Table_Load(object sender, EventArgs e)
         {
             this.game.readFactories(this.player);
+            this.game.readCenter(this.player);
+
             lstFactories.DisplayMember = "id";
             lstFactories.ValueMember = "id";
             lstFactories.DataSource = this.game.factories;
+
+            lstCenter.DisplayMember = "color";
+            lstCenter.ValueMember = "id";
+            lstCenter.DataSource = this.game.center.tiles;
+
+            new System.Threading.Timer((x) =>
+            {
+                this.game.readFactories(this.player);
+                this.game.readCenter(this.player);
+            }, null, TimeSpan.Zero, TimeSpan.FromSeconds(3));
+
         }
 
         private void lstFactories_SelectedIndexChanged(object sender, EventArgs e)

@@ -21,44 +21,45 @@ namespace Azul
         public String status { get; set; }
         public int actualPlayer { get; set; }
 
-        public BindingList<Player> players = new BindingList<Player>();
-        public List<Factory> factories = new List<Factory>();
+        public BindingList<Player> players { get; set; }
+        public BindingList<Factory> factories { get; set; }
+        public Center center { get; set; }
 
         public Game()
         {
-            for (int i = 1; i < 10; i++)
-            {
-                factories.Add(new Factory(i));
-            }
+            this.players = new BindingList<Player>();
+            this.factories = new BindingList<Factory>();
+            this.center = new Center();
         }
 
         public Game(string name, string password)
         {
             this.name = name;
             this.password = password;
-
-            for (int i = 1; i < 10; i++)
-            {
-                factories.Add(new Factory(i));
-            }
         }
 
         public void readFactories(Player player)
         {
             string result = Jogo.LerFabricas(player.id, player.password);
 
-            if (result != String.Empty)
+            if (result != String.Empty && !result.StartsWith("ERRO"))
             {
                 result = result.Trim();
                 result.Replace("\n", String.Empty);
                 String[] lines = result.Split('\r');
+
 
                 foreach (String line in lines)
                 {
                     String[] tileInfo = line.Split(',');
 
                     int factoryId = Convert.ToInt32(tileInfo[0]);
-                    Factory factory = this.factories.Find(item => item.id == factoryId);
+                    if (factoryId > factories.Count)
+                    {
+                        factories.Add(new Factory(factoryId));
+                    }
+
+                    Factory factory = this.factories.SingleOrDefault(item => item.id == factoryId);
                     int quantity = Convert.ToInt32(tileInfo[3]);
 
                     for (; quantity > 0; quantity--)
@@ -67,7 +68,34 @@ namespace Azul
                         tile.id = Convert.ToInt32(tileInfo[1]);
                         tile.color = tileInfo[2];
                         factory.tiles.Add(tile);
+                    }
+                }
+            }
+        }
 
+        public void readCenter(Player player)
+        {
+            string result = Jogo.LerCentro(player.id, player.password);
+
+            if (result != String.Empty && !result.StartsWith("ERRO"))
+            {
+                result = result.Trim();
+                result.Replace("\n", String.Empty);
+                String[] lines = result.Split('\r');
+
+
+                foreach (String line in lines)
+                {
+                    String[] tileInfo = line.Split(',');
+
+                    int quantity = Convert.ToInt32(tileInfo[2]);
+
+                    for (; quantity > 0; quantity--)
+                    {
+                        Tile tile = new Tile();
+                        tile.id = Convert.ToInt32(tileInfo[0]);
+                        tile.color = tileInfo[1];
+                        center.tiles.Add(tile);
                     }
                 }
             }
