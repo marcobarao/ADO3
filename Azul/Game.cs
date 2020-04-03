@@ -23,24 +23,45 @@ namespace Azul
 
         public BindingList<Player> players { get; set; }
         public BindingList<Factory> factories { get; set; }
+        public List<Model> model { get; set; }
         public Center center { get; set; }
 
         public Game()
         {
             this.players = new BindingList<Player>();
             this.factories = new BindingList<Factory>();
+            this.model = new List<Model>();
             this.center = new Center();
+
+            for (int i = 0; i < 5; i++)
+            {
+                this.model.Add(new Model(i + 1));
+            }
         }
 
         public Game(string name, string password)
         {
+            this.players = new BindingList<Player>();
+            this.factories = new BindingList<Factory>();
+            this.model = new List<Model>();
+            this.center = new Center();
             this.name = name;
             this.password = password;
+
+            for (int i = 0; i < 5; i++)
+            {
+                this.model.Add(new Model(i + 1));
+            }
         }
 
         public void readFactories(Player player)
         {
             string result = Jogo.LerFabricas(player.id, player.password);
+
+            foreach (var factory in factories)
+            {
+                factory.tiles.Clear();
+            }
 
             if (result != String.Empty && !result.StartsWith("ERRO"))
             {
@@ -76,6 +97,7 @@ namespace Azul
         public void readCenter(Player player)
         {
             string result = Jogo.LerCentro(player.id, player.password);
+            this.center.tiles.Clear();
 
             if (result != String.Empty && !result.StartsWith("ERRO"))
             {
@@ -99,6 +121,11 @@ namespace Azul
                     }
                 }
             }
+        }
+
+        public string readTable(Player player, Player target)
+        {
+            return Jogo.LerTabuleiro(player.id, player.password, target.id);
         }
 
         public void listPlayers()
