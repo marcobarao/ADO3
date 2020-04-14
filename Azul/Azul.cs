@@ -7,9 +7,7 @@ namespace Azul
 {
     public partial class Azul : Form
     {
-        public Player player { get; set; }
         public Lobby lobby { get; set; }
-        public Game game { get; set; }
 
         public Azul()
         {
@@ -29,13 +27,18 @@ namespace Azul
 
         private void btnEntrarPartida_Click(object sender, EventArgs e)
         {
-            this.game = (Game)lstGames.SelectedItem;
-            this.game.password = txtPasswordJoin.Text;
+            Game game = (Game)lstGames.SelectedItem;
+            game.password = txtPasswordJoin.Text;
             String username = txtNomeJogador.Text;
 
-            this.player = new Player(username);
-            lobby.joinGame(this.game, this.player);
-            this.game.players.Add(player);
+            Player player = new Player(username);
+            lobby.joinGame(game, player);
+            game.players.Add(player);
+
+            this.Hide();
+            Table table = new Table(game, player);
+            table.Closed += (s, args) => this.Close();
+            table.Show();
         }
 
         private void btnCreateMatch_Click(object sender, EventArgs e)
@@ -61,8 +64,6 @@ namespace Azul
             Game selectedGame = (Game)lstGames.SelectedItem;
             if (selectedGame == null) return;
 
-            selectedGame.players.Clear();
-
             lstPlayers.DisplayMember = "username";
             lstPlayers.ValueMember = "id";
             lstPlayers.DataSource = selectedGame.players;
@@ -71,14 +72,9 @@ namespace Azul
 
         private void btnStartGame_Click(object sender, EventArgs e)
         {
-            if (this.player == null) return;
+            
 
-            this.player.startGame(this.game);
-
-            this.Hide();
-            Table table = new Table(this.game, this.player);
-            table.Closed += (s, args) => this.Close();
-            table.Show();
+            
         }
     }
 }

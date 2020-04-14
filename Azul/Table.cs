@@ -29,23 +29,12 @@ namespace Azul
 
         private void Table_Load(object sender, EventArgs e)
         {
-            this.game.readFactories(this.player);
-            this.game.readCenter(this.player);
+            lstModel.DisplayMember = "id";
+            lstModel.ValueMember = "id";
+            lstModel.DataSource = this.game.model;
 
-            lstFactories.DisplayMember = "id";
-            lstFactories.ValueMember = "id";
-            lstFactories.DataSource = this.game.factories;
-
-            lstCenter.DisplayMember = "color";
-            lstCenter.ValueMember = "id";
-            lstCenter.DataSource = this.game.center.tiles;
-
-            new System.Threading.Timer((x) =>
-            {
-                this.game.readFactories(this.player);
-                this.game.readCenter(this.player);
-            }, null, TimeSpan.Zero, TimeSpan.FromSeconds(3));
-
+            lblId.Text = this.player.id.ToString();
+            lblPassword.Text = this.player.password;
         }
 
         private void lstFactories_SelectedIndexChanged(object sender, EventArgs e)
@@ -56,6 +45,67 @@ namespace Azul
             lstTiles.DisplayMember = "color";
             lstTiles.ValueMember = "id";
             lstTiles.DataSource = selectedFactory.tiles;
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            this.player.startGame(this.game);
+        }
+
+        private void lstTiles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRefreshFactories_Click(object sender, EventArgs e)
+        {
+            this.game.readFactories(this.player);
+
+            lstFactories.DisplayMember = "id";
+            lstFactories.ValueMember = "id";
+            lstFactories.DataSource = this.game.factories;
+        }
+
+        private void btnRefreshCenter_Click(object sender, EventArgs e)
+        {
+            this.game.readCenter(this.player);
+
+            lstCenter.DisplayMember = "color";
+            lstCenter.ValueMember = "id";
+            lstCenter.DataSource = this.game.center.tiles;
+        }
+
+        private void btnPlay_Click(object sender, EventArgs e)
+        {
+            string type;
+            Tile selectedTile;
+            if (rdoTypeC.Checked)
+            {
+                type = "C";
+                selectedTile = (Tile)lstCenter.SelectedItem;
+            } else
+            {
+                type = "F";
+                selectedTile = (Tile)lstTiles.SelectedItem;
+            }
+
+            Factory selectedFactory = (Factory)lstFactories.SelectedItem;
+            Model selectedModel = (Model)lstModel.SelectedItem;
+            if (selectedFactory == null || selectedModel == null || selectedTile == null) return;
+
+            this.player.play(type, selectedFactory, selectedTile, selectedModel);
+
+            txtTable.Text = this.game.readTable(this.player, this.player);
+        }
+
+        private void lstModel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

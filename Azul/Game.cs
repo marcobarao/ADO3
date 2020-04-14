@@ -22,27 +22,48 @@ namespace Azul
         public int actualPlayer { get; set; }
 
         public BindingList<Player> players { get; set; }
-        public List<Factory> factories { get; set; }
+        public BindingList<Factory> factories { get; set; }
+        public List<Model> model { get; set; }
         public Center center { get; set; }
 
         public Game()
         {
             this.players = new BindingList<Player>();
-            this.factories = new List<Factory>();
+            this.factories = new BindingList<Factory>();
+            this.model = new List<Model>();
             this.center = new Center();
+
+            for (int i = 0; i < 5; i++)
+            {
+                this.model.Add(new Model(i + 1));
+            }
         }
 
         public Game(string name, string password)
         {
+            this.players = new BindingList<Player>();
+            this.factories = new BindingList<Factory>();
+            this.model = new List<Model>();
+            this.center = new Center();
             this.name = name;
             this.password = password;
+
+            for (int i = 0; i < 5; i++)
+            {
+                this.model.Add(new Model(i + 1));
+            }
         }
 
         public void readFactories(Player player)
         {
             string result = Jogo.LerFabricas(player.id, player.password);
 
-            if (result != String.Empty)
+            foreach (var factory in factories)
+            {
+                factory.tiles.Clear();
+            }
+
+            if (result != String.Empty && !result.StartsWith("ERRO"))
             {
                 result = result.Trim();
                 result.Replace("\n", String.Empty);
@@ -59,7 +80,7 @@ namespace Azul
                         factories.Add(new Factory(factoryId));
                     }
 
-                    Factory factory = this.factories.Find(item => item.id == factoryId);
+                    Factory factory = this.factories.SingleOrDefault(item => item.id == factoryId);
                     int quantity = Convert.ToInt32(tileInfo[3]);
 
                     for (; quantity > 0; quantity--)
@@ -76,8 +97,9 @@ namespace Azul
         public void readCenter(Player player)
         {
             string result = Jogo.LerCentro(player.id, player.password);
+            this.center.tiles.Clear();
 
-            if (result != String.Empty)
+            if (result != String.Empty && !result.StartsWith("ERRO"))
             {
                 result = result.Trim();
                 result.Replace("\n", String.Empty);
@@ -99,6 +121,11 @@ namespace Azul
                     }
                 }
             }
+        }
+
+        public string readTable(Player player, Player target)
+        {
+            return Jogo.LerTabuleiro(player.id, player.password, target.id);
         }
 
         public void listPlayers()

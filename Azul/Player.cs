@@ -31,7 +31,10 @@ namespace Azul
                 game.actualPlayer = Convert.ToInt32(result.Trim());
             }
         }
+
+        public void play(string type, Factory factory, Tile tile, Model model)
+        {
+            string result = Jogo.Jogar(this.id, this.password, type, factory.id, tile.id, model.id);
+        }
     }
-
-
 }
