@@ -26,13 +26,13 @@ namespace Azul
         {
             string result = Jogo.IniciarPartida(this.id, this.password);
 
-            if (result != String.Empty)
+            if (result != String.Empty && !result.StartsWith("ERRO:"))
             {
                 game.actualPlayer = Convert.ToInt32(result.Trim());
             }
         }
 
-        public void play(string type, Factory factory, Tile tile, Model model)
+        public void play(string type, Factory factory, Tile tile, Line model)
         {
             string result = Jogo.Jogar(this.id, this.password, type, factory.id, tile.id, model.id);
         }

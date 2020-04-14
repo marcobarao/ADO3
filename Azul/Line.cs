@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Azul
 {
-    public class Model
+    public class Line
     {
         public int id { get; set; }
         public BindingList<Tile> tiles = new BindingList<Tile>();
 
-        public Model(int id)
+        public Line(int id)
         {
             this.id = id;
         }

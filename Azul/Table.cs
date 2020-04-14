@@ -35,6 +35,8 @@ namespace Azul
 
             lblId.Text = this.player.id.ToString();
             lblPassword.Text = this.player.password;
+
+            lblScore.Text = this.player.score.ToString();
         }
 
         private void lstFactories_SelectedIndexChanged(object sender, EventArgs e)
@@ -95,17 +97,66 @@ namespace Azul
             }
 
             Factory selectedFactory = (Factory)lstFactories.SelectedItem;
-            Model selectedModel = (Model)lstModel.SelectedItem;
+            Line selectedModel = (Line)lstModel.SelectedItem;
             if (selectedFactory == null || selectedModel == null || selectedTile == null) return;
 
             this.player.play(type, selectedFactory, selectedTile, selectedModel);
 
-            txtTable.Text = this.game.readTable(this.player, this.player);
+            this.game.readTable(this.player, this.player);
+            this.game.model.ForEach(x =>
+            {
+                int idx = 1;
+                foreach (var tile in x.tiles)
+                {
+                    Panel panel = this.Controls
+                        .Find($"pnlModel{x.id}{idx}", true)
+                        .OfType<Panel>()
+                        .Single();
+                    panel.BackColor = tile.color;
+                    idx++;
+                }
+            });
+
+            int idxx = 0;
+            flowLayoutPanel2.Controls.Clear();
+
+            foreach (var floorTile in this.game.floor.tiles)
+            {
+                Panel painel = new Panel();
+                painel.BackColor = floorTile.color;
+                painel.ForeColor = Color.FromArgb(floorTile.color.ToArgb() ^ 0xffffff);
+                painel.Parent = flowLayoutPanel2;
+                painel.Name = $"pnlFloor{idxx}{floorTile.id}";
+                painel.Size = new System.Drawing.Size(35, 40);
+
+                Label label = new Label();
+                label.Location = new System.Drawing.Point(20, 20);
+                label.Parent = painel;
+                label.Name = "label" + idxx;
+                label.Text = floorTile.penalty.ToString();
+                label.Size = new System.Drawing.Size(20, 20);
+                painel.Controls.Add(label);
+
+                flowLayoutPanel2.Controls.Add(painel);
+            }
+
+            //this.game.wall.ForEach(x =>
+            //{
+            //    foreach (var tile in x.tiles)
+            //    {
+            //        Panel panel = this.Controls
+            //            .Find($"pnl{x.id}{tile.id}", true)
+            //            .OfType<Panel>()
+            //            .SingleOrDefault();
+            //        if (panel != null) panel.BackColor = tile.color;
+            //    }
+            //});
         }
 
         private void lstModel_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
+
     }
 }
