@@ -37,6 +37,24 @@ namespace Azul
             lblPassword.Text = this.player.password;
 
             lblScore.Text = this.player.score.ToString();
+            drawWall();
+        }
+
+        private void drawWall()
+        {
+            this.game.wall.ForEach(line =>
+            {
+                foreach (var tile in line.tiles)
+                {
+                    Panel panel = new Panel();
+                    panel.BackColor = tile.color;
+                    panel.Parent = flpWall;
+                    panel.Name = $"pnlWall{line.id}{tile.id}";
+                    panel.Size = new System.Drawing.Size(30, 30);
+
+                    flpWall.Controls.Add(panel);
+                }
+            });
         }
 
         private void lstFactories_SelectedIndexChanged(object sender, EventArgs e)
@@ -140,17 +158,20 @@ namespace Azul
                 flowLayoutPanel2.Controls.Add(painel);
             }
 
-            //this.game.wall.ForEach(x =>
-            //{
-            //    foreach (var tile in x.tiles)
-            //    {
-            //        Panel panel = this.Controls
-            //            .Find($"pnl{x.id}{tile.id}", true)
-            //            .OfType<Panel>()
-            //            .SingleOrDefault();
-            //        if (panel != null) panel.BackColor = tile.color;
-            //    }
-            //});
+            this.game.wall.ForEach(line =>
+            {
+                foreach (var tile in line.tiles)
+                {
+                    Panel panel = this.Controls
+                        .Find($"pnlWall{line.id}{tile.id}", true)
+                        .OfType<Panel>()
+                        .SingleOrDefault();
+                    if (panel != null) panel.BackColor = tile.color;
+                }
+            });
+
+            this.game.listPlayers();
+            this.lblScore.Text = this.game.players.Single(player => player.id == this.player.id).score.ToString();
         }
 
         private void lstModel_SelectedIndexChanged(object sender, EventArgs e)

@@ -13,6 +13,14 @@ namespace Azul
     public class Game
     {
 
+        public Dictionary<int, Color> lightColors = new Dictionary<int, Color> {
+            { 1, Color.FromArgb(100, 0, 0, 255) },
+            { 5, Color.FromArgb(20, 240, 240, 240) },
+            { 4, Color.FromArgb(100, 0, 0, 0) },
+            { 3, Color.FromArgb(100, 255, 0, 0) },
+            { 2, Color.FromArgb(100, 255, 255, 0) }
+        };
+
         public Dictionary<int, Color> colors = new Dictionary<int, Color> {
             { 0, Color.MediumSpringGreen },
             { 1, Color.Blue },
@@ -46,17 +54,11 @@ namespace Azul
             this.floor = new Line(1);
             this.center = new Center();
 
+
+            createLightWall();
             for (int i = 1; i <= 5; i++)
             {
                 this.model.Add(new Line(i));
-                var line = new Line(i);
-
-                for (int j = 1; j <= 5; j++)
-                {
-                    line.tiles.Add(new Tile(j));
-                }
-
-                this.wall.Add(line);
             }
         }
 
@@ -71,17 +73,39 @@ namespace Azul
             this.name = name;
             this.password = password;
 
+            createLightWall();
             for (int i = 1; i <= 5; i++)
             {
                 this.model.Add(new Line(i));
-                Line line = new Line(i);
+            }
+        }
 
-                for (int j = 1; j <= 5; j++)
+        public void createLightWall()
+        {
+            string result = Jogo.ConsultarParede();
+
+            
+
+            if (result != String.Empty && !result.StartsWith("ERRO"))
+            {
+                result = result.Trim().Replace("\n", String.Empty);
+                String[] infos = result.Split('\r');
+                foreach (String info in infos)
                 {
-                    line.tiles.Add(new Tile(j));
-                }
+                    String[] tileInfo = info.Split(',');
 
-                this.wall.Add(line);
+                    int lineId = Convert.ToInt32(tileInfo[0]);
+                    int tileId = Convert.ToInt32(tileInfo[2]);
+                    if (lineId > wall.Count)
+                    {
+                        wall.Add(new Line(lineId));
+                    }
+
+                    Line line = this.wall.SingleOrDefault(item => item.id == lineId);
+                    Tile tile = new Tile(tileId);
+                    tile.color = lightColors[tile.id];
+                    line.tiles.Add(tile);
+                }
             }
         }
 
@@ -193,11 +217,11 @@ namespace Azul
                 {
                     String[] tileInfo = line.Split(',');
 
-                    Line actualLine = wall.Find(x => x.id == Convert.ToInt32(tileInfo[0]));
-                    Tile actualTile = actualLine.tiles.Single(x => x.id == Convert.ToInt32(tileInfo[1]));
-
                     string stringId = Regex.Match(tileInfo[2], @"\d+").Value;
-                    actualTile.id = Convert.ToInt32(stringId);
+
+                    Line actualLine = wall.Find(x => x.id == Convert.ToInt32(tileInfo[0]));
+                    Tile actualTile = actualLine.tiles.Single(x => x.id == Convert.ToInt32(stringId));
+
                     actualTile.color = colors[actualTile.id];
                 }
             }
@@ -232,7 +256,7 @@ namespace Azul
 
             if (result != String.Empty && !result.StartsWith("ERRO"))
             {
-                String[] entity = result.Split(new [] { "modelo", "chão", "parede" }, StringSplitOptions.None);
+                String[] entity = result.Split(new [] { "modelo", "parede", "chão" }, StringSplitOptions.None);
                 entity = entity.Where(x => !string.IsNullOrEmpty(x)).ToArray();
 
                 this.createModel(entity[0]);
@@ -245,6 +269,7 @@ namespace Azul
         {
             string result = Jogo.ListarJogadores(this.id);
 
+            this.players.Clear();
             if (result != String.Empty && !result.StartsWith("ERRO"))
             {
                 result = result.Trim();
