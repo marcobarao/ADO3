@@ -15,7 +15,7 @@ namespace Azul
 
         public Dictionary<int, Color> lightColors = new Dictionary<int, Color> {
             { 1, Color.FromArgb(100, 0, 0, 255) },
-            { 5, Color.FromArgb(20, 240, 240, 240) },
+            { 5, Color.FromArgb(100, 200, 200, 200) },
             { 4, Color.FromArgb(100, 0, 0, 0) },
             { 3, Color.FromArgb(100, 255, 0, 0) },
             { 2, Color.FromArgb(100, 255, 255, 0) }
@@ -112,7 +112,7 @@ namespace Azul
                 for (int j = 1; j <= i; j++)
                 {
                     Tile tile = new Tile(j);
-                    tile.color = Color.Silver;
+                    tile.color = Color.Transparent;
 
                     line.tiles.Add(tile);
                 }
