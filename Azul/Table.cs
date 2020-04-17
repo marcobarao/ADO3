@@ -38,6 +38,7 @@ namespace Azul
 
             lblScore.Text = this.player.score.ToString();
             drawWall();
+            drawModel();
         }
 
         private void drawWall()
@@ -53,6 +54,35 @@ namespace Azul
                     panel.Size = new System.Drawing.Size(30, 30);
 
                     flpWall.Controls.Add(panel);
+                }
+            });
+        }
+
+        private void drawModel()
+        {
+            flpModel.Controls.Clear();
+            this.game.model.ForEach(line =>
+            {
+                for (int i = 5; i > line.id; i--)
+                {
+                    Panel panel = new Panel();
+                    panel.BackColor = Color.FromArgb(0, 0, 0, 0);
+                    panel.Parent = flpModel;
+                    panel.Name = $"pnlModel{line.id}{i}";
+                    panel.Size = new System.Drawing.Size(30, 30);
+
+                    flpModel.Controls.Add(panel);
+                }
+
+                foreach (var tile in line.tiles.Reverse())
+                {
+                    Panel panel = new Panel();
+                    panel.BackColor = tile.color;
+                    panel.Parent = flpModel;
+                    panel.Name = $"pnlModel{line.id}{tile.id}";
+                    panel.Size = new System.Drawing.Size(30, 30);
+
+                    flpModel.Controls.Add(panel);
                 }
             });
         }
@@ -107,56 +137,46 @@ namespace Azul
             if (rdoTypeC.Checked)
             {
                 type = "C";
-                selectedTile = (Tile)lstCenter.SelectedItem;
-            } else
+                selectedTile = (Tile) lstCenter.SelectedItem;
+            }
+            else
             {
                 type = "F";
-                selectedTile = (Tile)lstTiles.SelectedItem;
+                selectedTile = (Tile) lstTiles.SelectedItem;
             }
 
-            Factory selectedFactory = (Factory)lstFactories.SelectedItem;
-            Line selectedModel = (Line)lstModel.SelectedItem;
+            Factory selectedFactory = (Factory) lstFactories.SelectedItem;
+            Line selectedModel = (Line) lstModel.SelectedItem;
             if (selectedFactory == null || selectedModel == null || selectedTile == null) return;
 
             this.player.play(type, selectedFactory, selectedTile, selectedModel);
 
             this.game.readTable(this.player, this.player);
-            this.game.model.ForEach(x =>
-            {
-                int idx = 1;
-                foreach (var tile in x.tiles)
-                {
-                    Panel panel = this.Controls
-                        .Find($"pnlModel{x.id}{idx}", true)
-                        .OfType<Panel>()
-                        .Single();
-                    panel.BackColor = tile.color;
-                    idx++;
-                }
-            });
 
             int idxx = 0;
             flowLayoutPanel2.Controls.Clear();
 
             foreach (var floorTile in this.game.floor.tiles)
             {
-                Panel painel = new Panel();
-                painel.BackColor = floorTile.color;
-                painel.ForeColor = Color.FromArgb(floorTile.color.ToArgb() ^ 0xffffff);
-                painel.Parent = flowLayoutPanel2;
-                painel.Name = $"pnlFloor{idxx}{floorTile.id}";
-                painel.Size = new System.Drawing.Size(35, 40);
+                Panel panel = new Panel();
+                panel.BackColor = floorTile.color;
+                panel.ForeColor = Color.FromArgb(floorTile.color.ToArgb() ^ 0xffffff);
+                panel.Parent = flowLayoutPanel2;
+                panel.Name = $"pnlFloor{idxx}{floorTile.id}";
+                panel.Size = new System.Drawing.Size(35, 40);
 
                 Label label = new Label();
                 label.Location = new System.Drawing.Point(20, 20);
-                label.Parent = painel;
+                label.Parent = panel;
                 label.Name = "label" + idxx;
                 label.Text = floorTile.penalty.ToString();
                 label.Size = new System.Drawing.Size(20, 20);
-                painel.Controls.Add(label);
+                panel.Controls.Add(label);
 
-                flowLayoutPanel2.Controls.Add(painel);
+                flowLayoutPanel2.Controls.Add(panel);
             }
+
+            drawModel();
 
             this.game.wall.ForEach(line =>
             {
@@ -173,11 +193,5 @@ namespace Azul
             this.game.listPlayers();
             this.lblScore.Text = this.game.players.Single(player => player.id == this.player.id).score.ToString();
         }
-
-        private void lstModel_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
     }
 }

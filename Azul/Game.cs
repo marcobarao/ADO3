@@ -56,10 +56,7 @@ namespace Azul
 
 
             createLightWall();
-            for (int i = 1; i <= 5; i++)
-            {
-                this.model.Add(new Line(i));
-            }
+            createEmptyModel();
         }
 
         public Game(string name, string password)
@@ -74,10 +71,7 @@ namespace Azul
             this.password = password;
 
             createLightWall();
-            for (int i = 1; i <= 5; i++)
-            {
-                this.model.Add(new Line(i));
-            }
+            createEmptyModel();
         }
 
         public void createLightWall()
@@ -106,6 +100,23 @@ namespace Azul
                     tile.color = lightColors[tile.id];
                     line.tiles.Add(tile);
                 }
+            }
+        }
+
+        public void createEmptyModel()
+        {
+            this.model.Clear();
+            for (int i = 1; i <= 5; i++)
+            {
+                Line line = new Line(i);
+                for (int j = 1; j <= i; j++)
+                {
+                    Tile tile = new Tile(j);
+                    tile.color = Color.Silver;
+
+                    line.tiles.Add(tile);
+                }
+                this.model.Add(line);
             }
         }
 
@@ -181,6 +192,7 @@ namespace Azul
         public void createModel(string entity)
         {
             string transformedEntity = entity.Trim().Replace("\n", String.Empty);
+            createEmptyModel();
 
             if (transformedEntity != String.Empty)
             {
@@ -193,13 +205,11 @@ namespace Azul
                     Line actualLine = model.Find(x => x.id == Convert.ToInt32(tileInfo[0]));
                     int quantity = Convert.ToInt32(tileInfo[2]);
 
-                    actualLine.tiles.Clear();
                     for (; quantity > 0; quantity--)
                     {
-                        Tile tile = new Tile();
-                        tile.id = Convert.ToInt32(tileInfo[1]);
-                        tile.color = colors[tile.id];
-                        actualLine.tiles.Add(tile);
+                        Tile actualTile = actualLine.tiles.ElementAt(quantity - 1);
+                        actualTile.id = Convert.ToInt32(tileInfo[1]);
+                        actualTile.color = colors[actualTile.id];
                     }
                 }
             }
