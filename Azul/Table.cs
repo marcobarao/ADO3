@@ -78,6 +78,7 @@ namespace Azul
                 {
                     Panel panel = new Panel();
                     panel.BackColor = tile.color;
+                    panel.BorderStyle = BorderStyle.Fixed3D;
                     panel.Parent = flpModel;
                     panel.Name = $"pnlModel{line.id}{tile.id}";
                     panel.Size = new System.Drawing.Size(30, 30);
@@ -151,6 +152,11 @@ namespace Azul
 
             this.player.play(type, selectedFactory, selectedTile, selectedModel);
 
+            this.refreshTable();
+        }
+
+        private void refreshTable()
+        {
             this.game.readTable(this.player, this.player);
 
             int idxx = 0;
@@ -192,6 +198,11 @@ namespace Azul
 
             this.game.listPlayers();
             this.lblScore.Text = this.game.players.Single(player => player.id == this.player.id).score.ToString();
+        }
+
+        private void btnRefreshTable_Click(object sender, EventArgs e)
+        {
+            this.refreshTable();
         }
     }
 }
