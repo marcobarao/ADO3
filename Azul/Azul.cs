@@ -57,6 +57,8 @@ namespace Azul
         {
             lobby.listGames("A");
             this.listPlayers();
+            
+
         }
 
         private void listPlayers()
