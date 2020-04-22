@@ -37,6 +37,8 @@ namespace Azul
         public String status { get; set; }
         public int actualPlayer { get; set; }
 
+        public bool yourTurn { get; set; }
+
         public BindingList<Player> players { get; set; }
         public BindingList<Factory> factories { get; set; }
         public List<Line> model { get; set; }
