@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using AzulServer;
+using System;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Azul
@@ -33,12 +30,31 @@ namespace Azul
             lstModel.ValueMember = "id";
             lstModel.DataSource = this.game.model;
 
+            TimerCallback tmCallback = Check_Turn;
+            System.Threading.Timer timer = new System.Threading.Timer(tmCallback, new AutoResetEvent(false), TimeSpan.FromSeconds(4), TimeSpan.FromSeconds(4));
+
             lblId.Text = this.player.id.ToString();
             lblPassword.Text = this.player.password;
 
             lblScore.Text = this.player.score.ToString();
             drawWall();
             drawModel();
+        }
+
+        private void Check_Turn(object objectInfo)
+        {
+            string result = Jogo.VerificarVez(this.player.id, this.player.password);
+            result = result.Trim();
+            if (result != String.Empty && !result.StartsWith("ERRO"))
+            {
+                String[] data = result.Split(',');
+                int id = Convert.ToInt32(data[1]);
+
+                this.game.yourTurn = id == this.player.id;
+                
+                //TODO: Fazer jogada automatica
+            }
+
         }
 
         private void drawWall()
