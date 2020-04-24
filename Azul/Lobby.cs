@@ -47,6 +47,8 @@ namespace Azul
             String[] playerInfo = result.Split(',');
             player.id = Convert.ToInt32(playerInfo[0]);
             player.password = playerInfo[1].Trim();
+            game.createEmptyModel();
+            game.createLightWall();
         }
 
         public void createGame(Game game)

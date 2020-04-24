@@ -55,10 +55,6 @@ namespace Azul
             this.wall = new List<Line>();
             this.floor = new Line(1);
             this.center = new Center();
-
-
-            createLightWall();
-            createEmptyModel();
         }
 
         public Game(string name, string password)
@@ -71,9 +67,6 @@ namespace Azul
             this.floor = new Line(1);
             this.name = name;
             this.password = password;
-
-            createLightWall();
-            createEmptyModel();
         }
 
         public void createLightWall()

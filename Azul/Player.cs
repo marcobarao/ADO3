@@ -32,9 +32,10 @@ namespace Azul
             }
         }
 
-        public void play(string type, Factory factory, Tile tile, Line model)
+        public bool play(string type, Factory factory, Tile tile, Line model)
         {
             string result = Jogo.Jogar(this.id, this.password, type, factory.id, tile.id, model.id);
+            return !result.StartsWith("ERRO:");
         }
     }
 }
