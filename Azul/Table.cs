@@ -9,12 +9,14 @@ namespace Azul
 {
     public partial class Table : Form
     {
+        public System.Threading.Timer timer { get; set; }
         public Game game { get; set; }
         public Player player { get; set; }
 
         public Table()
         {
             InitializeComponent();
+            this.tmrCheck.Start();
         }
 
         public Table(Game game, Player player)
@@ -22,6 +24,7 @@ namespace Azul
             InitializeComponent();
             this.game = game;
             this.player = player;
+            this.tmrCheck.Start();
         }
 
         private void Table_Load(object sender, EventArgs e)
@@ -30,31 +33,45 @@ namespace Azul
             lstModel.ValueMember = "id";
             lstModel.DataSource = this.game.model;
 
-            TimerCallback tmCallback = Check_Turn;
-            System.Threading.Timer timer = new System.Threading.Timer(tmCallback, new AutoResetEvent(false), TimeSpan.FromSeconds(4), TimeSpan.FromSeconds(4));
-
-            lblId.Text = this.player.id.ToString();
-            lblPassword.Text = this.player.password;
-
             lblScore.Text = this.player.score.ToString();
             drawWall();
             drawModel();
         }
 
-        private void Check_Turn(object objectInfo)
+        private void autoPlay()
         {
-            string result = Jogo.VerificarVez(this.player.id, this.player.password);
-            result = result.Trim();
-            if (result != String.Empty && !result.StartsWith("ERRO"))
+            Factory factoryWithTile = this.game.factories.ToList().Find(factory => factory.tiles.Count > 0);
+            Tile tile;
+            string type;
+            Line modelWithTileColorOrEmpty;
+            if (factoryWithTile != null)
             {
-                String[] data = result.Split(',');
-                int id = Convert.ToInt32(data[1]);
-
-                this.game.yourTurn = id == this.player.id;
-                
-                //TODO: Fazer jogada automatica
+                type = "F";
+                tile = factoryWithTile.tiles.FirstOrDefault();
+                modelWithTileColorOrEmpty = this.game.model.ToList().Find(model =>
+                {
+                    Tile firstTile = model.tiles.First();
+                    return firstTile.color == Color.Transparent || firstTile.color == tile.color;
+                });    
+            }
+            else
+            {
+                factoryWithTile = new Factory(0);
+                type = "C";
+                tile = this.game.center.tiles.FirstOrDefault();
+                modelWithTileColorOrEmpty = this.game.model.ToList().Find(model =>
+                {
+                    Tile firstTile = model.tiles.First();
+                    return firstTile.color == Color.Transparent || firstTile.color == tile.color;
+                });
             }
 
+            bool success = this.player.play(type, factoryWithTile, tile, modelWithTileColorOrEmpty);
+            if (success)
+            {
+                this.tmrCheck.Start();
+                this.refreshTable();
+            }
         }
 
         private void drawWall()
@@ -149,25 +166,10 @@ namespace Azul
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            string type;
-            Tile selectedTile;
-            if (rdoTypeC.Checked)
-            {
-                type = "C";
-                selectedTile = (Tile) lstCenter.SelectedItem;
-            }
-            else
-            {
-                type = "F";
-                selectedTile = (Tile) lstTiles.SelectedItem;
-            }
 
-            Factory selectedFactory = (Factory) lstFactories.SelectedItem;
-            Line selectedModel = (Line) lstModel.SelectedItem;
-            if (selectedFactory == null || selectedModel == null || selectedTile == null) return;
-
-            this.player.play(type, selectedFactory, selectedTile, selectedModel);
-
+            autoPlay();
+            this.game.readFactories(this.player);
+            this.game.readCenter(this.player);
             this.refreshTable();
         }
 
@@ -219,6 +221,30 @@ namespace Azul
         private void btnRefreshTable_Click(object sender, EventArgs e)
         {
             this.refreshTable();
+        }
+
+        private void tmrCheck_Tick(object sender, EventArgs e)
+        {
+            string result = Jogo.VerificarVez(this.player.id, this.player.password);
+            result = result.Trim();
+
+            if (result != String.Empty && !result.StartsWith("ERRO"))
+            {
+                String[] data = result.Split(',');
+                int id = Convert.ToInt32(data[1]);
+
+                Player playerTurn = this.game.players.Single(player => player.id == id);
+                this.lblPlayer.Text = $@"Vez do jogador: {playerTurn.username}";
+
+                if (id == this.player.id)
+                {
+                    this.tmrCheck.Stop();
+
+                    this.game.readFactories(this.player);
+                    this.game.readCenter(this.player);
+                    autoPlay();
+                }
+            }
         }
     }
 }
