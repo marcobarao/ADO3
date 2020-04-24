@@ -28,6 +28,8 @@ namespace Azul
 
             if (result != String.Empty && !result.StartsWith("ERRO:"))
             {
+                game.listPlayers();
+                game.createEmptyModel();
                 game.actualPlayer = Convert.ToInt32(result.Trim());
             }
         }
