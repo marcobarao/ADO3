@@ -115,6 +115,16 @@ namespace Azul
             }
         }
 
+        public void createEmptyFactories()
+        {
+            this.factories.Clear();
+            int max = 3 + this.players.Count * 2;
+            for (int i = 1; i <= max; i++)
+            {
+                this.factories.Add(new Factory(i));
+            }
+        }
+
         public void readFactories(Player player)
         {
             string result = Jogo.LerFabricas(player.id, player.password);
@@ -136,11 +146,6 @@ namespace Azul
                     String[] tileInfo = line.Split(',');
 
                     int factoryId = Convert.ToInt32(tileInfo[0]);
-                    if (factoryId > factories.Count)
-                    {
-                        factories.Add(new Factory(factoryId));
-                    }
-
                     Factory factory = this.factories.SingleOrDefault(item => item.id == factoryId);
                     int quantity = Convert.ToInt32(tileInfo[3]);
 

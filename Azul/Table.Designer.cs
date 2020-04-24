@@ -279,7 +279,7 @@
             // 
             // tmrCheck
             // 
-            this.tmrCheck.Interval = 4000;
+            this.tmrCheck.Interval = 2500;
             this.tmrCheck.Tick += new System.EventHandler(this.tmrCheck_Tick);
             // 
             // lblPlayer
